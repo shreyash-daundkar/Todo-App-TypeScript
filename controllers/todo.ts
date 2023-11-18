@@ -28,3 +28,24 @@ exports.addTodos = (req: any, res: any, next: any) => {
         res.status(500).json({message: 'Error in adding Todos'});
     }
 }
+
+exports.deleteTodos = (req: any, res: any, next: any) => {
+    try {
+        const id : string = req.body.id
+
+        let index: number = -1;
+        todos.forEach((todo, i) => index = todo.id === id? i : -1);
+
+        if(index === -1) {
+            return res.json({ message: "Todo not found" });
+        } else {
+            
+            todos.splice(index, 1);
+            return res.json({ Message: "Todo deleted" })
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Error in adding Todos'});
+    }
+}

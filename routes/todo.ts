@@ -1,9 +1,10 @@
 const { Router } = require('express');
-const { displayTodos, addTodos } = require('../controllers/todo');
+const { displayTodos, addTodos, deleteTodos } = require('../controllers/todo');
 
 const router = Router();
 
 router.get('/', displayTodos);
 router.post('/', addTodos);
+router.delete('/', deleteTodos);
 
 module.exports = router;
