@@ -40,3 +40,21 @@ exports.deleteTodos = (req, res, next) => {
         res.status(500).json({ message: 'Error in adding Todos' });
     }
 };
+exports.editTodos = (req, res, next) => {
+    try {
+        const todo = req.body;
+        let index = -1;
+        todos.forEach((todo, i) => index = todo.id === todo.id ? i : -1);
+        if (index === -1) {
+            return res.json({ message: "Todo not found" });
+        }
+        else {
+            todos[index] = todo;
+            return res.json({ Message: "Todo edited" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error in adding Todos' });
+    }
+};

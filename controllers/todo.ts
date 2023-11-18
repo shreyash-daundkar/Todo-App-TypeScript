@@ -39,9 +39,30 @@ exports.deleteTodos = (req: any, res: any, next: any) => {
         if(index === -1) {
             return res.json({ message: "Todo not found" });
         } else {
-            
+
             todos.splice(index, 1);
             return res.json({ Message: "Todo deleted" })
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Error in adding Todos'});
+    }
+}
+
+exports.editTodos = (req: any, res: any, next: any) => {
+    try {
+        const todo: Todo = req.body;
+
+        let index: number = -1;
+        todos.forEach((todo, i) => index = todo.id === todo.id? i : -1);
+
+        if(index === -1) {
+            return res.json({ message: "Todo not found" });
+        } else {
+
+            todos[index] = todo;
+            return res.json({ Message: "Todo edited" })
         }
     } 
     catch (error) {
