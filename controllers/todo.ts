@@ -17,9 +17,9 @@ exports.displayTodos = (req: any, res: any, next: any) => {
 
 exports.addTodos = (req: any, res: any, next: any) => {
     try {
-        const { text } = req.body;
+        const body = req.body as { text: string }
         let id : string= new Date().toISOString()
-        const todo: Todo = { id, text}
+        const todo: Todo = { id, text: body.text }
         todos.push(todo);
         res.json({ id })
     } 
@@ -31,7 +31,8 @@ exports.addTodos = (req: any, res: any, next: any) => {
 
 exports.deleteTodos = (req: any, res: any, next: any) => {
     try {
-        const id : string = req.body.id
+        const body = req.body as { id: string };
+        const id : string = body.id
 
         let index: number = -1;
         todos.forEach((todo, i) => index = todo.id === id? i : -1);
@@ -52,7 +53,7 @@ exports.deleteTodos = (req: any, res: any, next: any) => {
 
 exports.editTodos = (req: any, res: any, next: any) => {
     try {
-        const todo: Todo = req.body;
+        const todo: Todo = req.body as Todo;
 
         let index: number = -1;
         todos.forEach((todo, i) => index = todo.id === todo.id? i : -1);
